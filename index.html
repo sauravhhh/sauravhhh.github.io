@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Doe - Personal Bio</title>
+    <meta name="description" content="Personal bio and portfolio of John Doe - Web Developer">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .bio-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin: 0 auto 20px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            overflow: hidden;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .about-text {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+        }
+
+        .contact-item a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .projects {
+            display: grid;
+            gap: 20px;
+        }
+
+        .project-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .project-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .project-description {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .project-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .name {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bio-card">
+            <div class="header">
+                <div class="profile-pic" id="profilePic">
+                    👤
+                </div>
+                <h1 class="name">John Doe</h1>
+                <p class="title">Full Stack Web Developer</p>
+            </div>
+
+            <div class="content">
+                <div class="section">
+                    <h2>About Me</h2>
+                    <p class="about-text">
+                        Hello! I'm a passionate web developer with 3+ years of experience creating 
+                        beautiful and functional websites. I love turning ideas into reality through 
+                        clean code and innovative design. When I'm not coding, you can find me exploring 
+                        new technologies, reading tech blogs, or enjoying a good cup of coffee.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2>Skills</h2>
+                    <div class="skills">
+                        <span class="skill-tag">HTML & CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">UI/UX Design</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Featured Projects</h2>
+                    <div class="projects">
+                        <div class="project-card">
+                            <div class="project-title">WhatsApp Chat Interface</div>
+                            <div class="project-description">
+                                A realistic WhatsApp chat interface clone with functional messaging, 
+                                customizable profiles, and dynamic status updates.
+                            </div>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-title">Portfolio Website</div>
+                            <div class="project-description">
+                                A responsive personal portfolio showcasing my work and skills 
+                                with modern design and smooth animations.
+                            </div>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-title">E-commerce App</div>
+                            <div class="project-description">
+                                A full-stack e-commerce application with user authentication, 
+                                payment integration, and admin dashboard.
+                            </div>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Contact</h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            📧 <a href="mailto:john.doe@email.com">john.doe@email.com</a>
+                        </div>
+                        <div class="contact-item">
+                            🌐 <a href="https://github.com/johndoe" target="_blank">GitHub</a>
+                        </div>
+                        <div class="contact-item">
+                            💼 <a href="https://linkedin.com/in/johndoe" target="_blank">LinkedIn</a>
+                        </div>
+                        <div class="contact-item">
+                            🐦 <a href="https://twitter.com/johndoe" target="_blank">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 John Doe. Made with ❤️ and hosted on GitHub Pages.</p>
+        </div>
+    </div>
+
+    <!-- Hidden file input for profile picture -->
+    <input type="file" id="profilePicInput" style="display: none;" accept="image/*">
+
+    <script>
+        // Profile picture upload functionality
+        const profilePic = document.getElementById('profilePic');
+        const profilePicInput = document.getElementById('profilePicInput');
+
+        profilePic.addEventListener('click', function() {
+            profilePicInput.click();
+        });
+
+        profilePicInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePic.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add a simple animation on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const bioCard = document.querySelector('.bio-card');
+            bioCard.style.opacity = '0';
+            bioCard.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                bioCard.style.transition = 'all 0.6s ease-out';
+                bioCard.style.opacity = '1';
+                bioCard.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
