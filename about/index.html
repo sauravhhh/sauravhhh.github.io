@@ -1,1 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saurabh - Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Styles */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0a0a0a;
+            z-index: 1000;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 15px 0;
+        }
+
+        .nav-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Futuristic Menu Button */
+        .menu-toggle {
+            display: none;
+            width: 50px;
+            height: 50px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            box-shadow: 0 4px 15px rgba(74, 158, 255, 0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(74, 158, 255, 0.4);
+        }
+
+        .menu-toggle span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 20px;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            border-radius: 3px;
+            opacity: 1;
+            left: 15px;
+            transform: rotate(0deg);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) {
+            top: 16px;
+        }
+
+        .menu-toggle span:nth-child(2) {
+            top: 24px;
+        }
+
+        .menu-toggle span:nth-child(3) {
+            top: 32px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            top: 24px;
+            transform: rotate(135deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            top: 24px;
+            transform: rotate(-135deg);
+        }
+
+        /* Glowing effect */
+        .menu-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-toggle:hover::before {
+            opacity: 0.1;
+        }
+
+        .menu-toggle.active::before {
+            opacity: 0.2;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-menu li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu li a:hover {
+            color: #4a9eff;
+        }
+
+        .nav-menu li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu li a.active {
+            color: #4a9eff;
+        }
+
+        .nav-menu li a.active::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px 60px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: #86868b;
+            font-size: 1rem;
+        }
+
+        .code-block {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-left: 4px solid #4a9eff;
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+            margin-bottom: 15px;
+        }
+
+        .code-block .key {
+            color: #66d9ef;
+        }
+
+        .code-block .string {
+            color: #a6e22e;
+        }
+
+        .code-block .number {
+            color: #ae81ff;
+        }
+
+        .code-block .boolean {
+            color: #f92672;
+        }
+
+        .content-section {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #4a9eff;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-icon {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        .section-content {
+            color: #e0e0e0;
+        }
+
+        .section-content p {
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #1a1a1a;
+            border-radius: 50%;
+            color: #4a9eff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            opacity: 0;
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-link:hover::before {
+            opacity: 0.2;
+        }
+
+        .social-link:hover {
+            background-color: #4a9eff;
+            color: #0a0a0a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.3);
+        }
+
+        .social-link i {
+            position: relative;
+            z-index: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            margin-top: auto;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(10px);
+                width: 100%;
+                text-align: center;
+                transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.3);
+                padding: 30px 0;
+                border-top: 1px solid rgba(74, 158, 255, 0.2);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeInUp 0.5s forwards;
+            }
+            
+            .nav-menu.active li:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+            
+            .nav-menu.active li:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            
+            .nav-menu.active li:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+            
+            .nav-menu.active li:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+            
+            .nav-menu.active li:nth-child(5) {
+                animation-delay: 0.5s;
+            }
+            
+            @keyframes fadeInUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            h1 { font-size: 2rem; }
+            .container { padding: 120px 15px 60px; }
+            .social-links { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-wrapper">
+            <div class="logo">Saurabh</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="terms.html">Terms</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header>
+            <h1>Saurabh</h1>
+            <p class="subtitle">Full Stack Developer & Digital Marketing Expert</p>
+        </header>
+
+        <div class="code-block">
+            <div class="comment">// About Saurabh</div>
+            <div><span class="key">const</span> saurabh = {</div>
+            <div style="padding-left: 20px;">
+                <div><span class="key">role</span>: <span class="string">"Full Stack Developer"</span>,</div>
+                <div><span class="key">passion</span>: <span class="string">"Creating digital experiences"</span>,</div>
+                <div><span class="key">focus</span>: <span class="string">"Web development & Digital marketing"</span>,</div>
+                <div><span class="key">status</span>: <span class="string">"Available for work"</span></div>
+            </div>
+            <div>};</div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-user section-icon"></i>
+                About Me
+            </h2>
+            <div class="section-content">
+                <p>I'm a passionate Full Stack Developer with a love for creating digital experiences that make a difference. With a background in both web development and digital marketing, I bring a unique perspective to every project I work on.</p>
+                <p>My expertise spans across the entire development stack, from frontend technologies like React and Vue.js to backend systems with Node.js and Python. I also have a strong foundation in digital marketing strategies, allowing me to create solutions that are not only technically sound but also effective in reaching their target audience.</p>
+                <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing my knowledge with the developer community.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-briefcase section-icon"></i>
+                What I Do
+            </h2>
+            <div class="section-content">
+                <p><strong>Web Development:</strong> Building responsive, performant web applications using modern frameworks and best practices.</p>
+                <p><strong>Digital Marketing:</strong> Creating and implementing strategies to increase online visibility and engagement.</p>
+                <p><strong>Consulting:</strong> Helping businesses leverage technology to solve problems and achieve their goals.</p>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://linkedin.com/in/saurabh" class="social-link" target="_blank">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/saurabh" class="social-link" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://twitter.com/saurabh" class="social-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="mailto:hello@saurabh.qzz.io" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        Made with ❤️ by Sauravhhh
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu li a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && !navMenu.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+  </html>
