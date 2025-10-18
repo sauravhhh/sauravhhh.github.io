@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+        }
+
+        .code-block {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-left: 4px solid #4a9eff;
+            overflow-x: auto;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+            margin-bottom: 15px;
+        }
+
+        .code-block .key {
+            color: #66d9ef;
+        }
+
+        .code-block .string {
+            color: #a6e22e;
+        }
+
+        .code-block .number {
+            color: #ae81ff;
+        }
+
+        .code-block .boolean {
+            color: #f92672;
+        }
+
+        .terminal {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27c93f; }
+
+        .terminal-content {
+            color: #a6e22e;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .terminal-prompt {
+            color: #66d9ef;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: #a6e22e;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 158, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #4a9eff;
+            color: #4a9eff;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(74, 158, 255, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            margin-top: auto;
+        }
+
+        @media (max-width: 600px) {
+            .error-code { font-size: 6rem; }
+            .container { padding: 40px 15px; }
+            .error-actions { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-code">404</div>
+        
+        <div class="code-block">
+            <div class="comment">// Page not found</div>
+            <div><span class="key">const</span> error = {</div>
+            <div style="padding-left: 20px;">
+                <div><span class="key">code</span>: <span class="number">404</span>,</div>
+                <div><span class="key">message</span>: <span class="string">"Page not found"</span>,</div>
+                <div><span class="key">status</span>: <span class="boolean">false</span>,</div>
+                <div><span class="key">suggestion</span>: <span class="string">"Check the URL or return to homepage"</span></div>
+            </div>
+            <div>};</div>
+        </div>
+
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+            </div>
+            <div class="terminal-content">
+                <div><span class="terminal-prompt">$</span> ./navigate.sh</div>
+                <div>Searching for page...</div>
+                <div>Error: Page not found</div>
+                <div>Redirecting to homepage <span class="terminal-cursor"></span></div>
+            </div>
+        </div>
+
+        <div class="error-actions">
+            <a href="/" class="btn">Go Home</a>
+            <a href="/contact" class="btn btn-secondary">Contact</a>
+        </div>
+    </div>
+
+    <footer>
+        Made with ❤️ by Sauravhhh
+    </footer>
+</body>
+</html>
