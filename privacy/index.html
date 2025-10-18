@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Saurabh</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,45 +14,238 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f5f5f7;
-            color: #1d1d1f;
-            line-height: 1.5;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
+        /* Navigation Styles */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0a0a0a;
+            z-index: 1000;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 15px 0;
+        }
+
+        .nav-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        /* Futuristic Menu Button */
+        .menu-toggle {
+            display: none;
+            width: 50px;
+            height: 50px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            box-shadow: 0 4px 15px rgba(74, 158, 255, 0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(74, 158, 255, 0.4);
+        }
+
+        .menu-toggle span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 20px;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            border-radius: 3px;
+            opacity: 1;
+            left: 15px;
+            transform: rotate(0deg);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) {
+            top: 16px;
+        }
+
+        .menu-toggle span:nth-child(2) {
+            top: 24px;
+        }
+
+        .menu-toggle span:nth-child(3) {
+            top: 32px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            top: 24px;
+            transform: rotate(135deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            top: 24px;
+            transform: rotate(-135deg);
+        }
+
+        /* Glowing effect */
+        .menu-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-toggle:hover::before {
+            opacity: 0.1;
+        }
+
+        .menu-toggle.active::before {
+            opacity: 0.2;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-menu li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu li a:hover {
+            color: #4a9eff;
+        }
+
+        .nav-menu li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu li a.active {
+            color: #4a9eff;
+        }
+
+        .nav-menu li a.active::after {
+            width: 100%;
+        }
+
+        /* Main Content */
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 100px 20px 60px;
             flex: 1;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         h1 {
             font-size: 2.5rem;
             font-weight: 600;
             margin-bottom: 10px;
-            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
         }
 
         .subtitle {
             color: #86868b;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
-        .card {
-            background-color: #ffffff;
-            border-radius: 18px;
+        .code-block {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-left: 4px solid #4a9eff;
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+            margin-bottom: 15px;
+        }
+
+        .code-block .key {
+            color: #66d9ef;
+        }
+
+        .code-block .string {
+            color: #a6e22e;
+        }
+
+        .code-block .number {
+            color: #ae81ff;
+        }
+
+        .code-block .boolean {
+            color: #f92672;
+        }
+
+        .privacy-section {
+            background-color: #1a1a1a;
+            border-radius: 8px;
             padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
         }
 
@@ -58,79 +253,215 @@
             font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: #1d1d1f;
+            color: #4a9eff;
             display: flex;
             align-items: center;
         }
 
         .section-icon {
-            width: 24px;
-            height: 24px;
             margin-right: 12px;
-            color: #007aff;
+            font-size: 1.2rem;
         }
 
         .section-content {
-            margin-bottom: 20px;
-            color: #1d1d1f;
+            color: #e0e0e0;
         }
 
         .section-content p {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .section-content ul {
             margin-left: 20px;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .section-content li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .highlight {
-            background-color: #f5f5f7;
-            padding: 2px 5px;
-            border-radius: 4px;
+            color: #a6e22e;
             font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #1a1a1a;
+            border-radius: 50%;
+            color: #4a9eff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            opacity: 0;
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-link:hover::before {
+            opacity: 0.2;
+        }
+
+        .social-link:hover {
+            background-color: #4a9eff;
+            color: #0a0a0a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.3);
+        }
+
+        .social-link i {
+            position: relative;
+            z-index: 1;
         }
 
         footer {
             text-align: center;
             padding: 30px 20px;
-            color: #86868b;
+            color: #666;
             font-size: 0.9rem;
-            background-color: #ffffff;
-            border-top: 1px solid #d2d2d7;
+            font-family: 'Inter', sans-serif;
+            margin-top: auto;
         }
 
         .last-updated {
             color: #86868b;
             font-size: 0.9rem;
-            margin-top: 5px;
+            margin-top: 20px;
             font-style: italic;
         }
 
-        @media (max-width: 600px) {
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(10px);
+                width: 100%;
+                text-align: center;
+                transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.3);
+                padding: 30px 0;
+                border-top: 1px solid rgba(74, 158, 255, 0.2);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeInUp 0.5s forwards;
+            }
+            
+            .nav-menu.active li:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+            
+            .nav-menu.active li:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            
+            .nav-menu.active li:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+            
+            .nav-menu.active li:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+            
+            .nav-menu.active li:nth-child(5) {
+                animation-delay: 0.5s;
+            }
+            
+            @keyframes fadeInUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
             h1 { font-size: 2rem; }
-            .container { padding: 30px 15px; }
-            .card { padding: 20px; }
+            .container { padding: 120px 15px 60px; }
+            .social-links { flex-wrap: wrap; }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-wrapper">
+            <a href="/" class="logo">Saurabh</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/privacy.html" class="active">Privacy</a></li>
+                <li><a href="/terms.html">Terms</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
     <div class="container">
         <header>
             <h1>Privacy Policy</h1>
             <p class="subtitle">Your privacy is important to us</p>
         </header>
 
-        <div class="card">
-            <div class="section-title">
+        <div class="code-block">
+            <div class="comment">// Privacy Policy Information</div>
+            <div><span class="key">const</span> privacy = {</div>
+            <div style="padding-left: 20px;">
+                <div><span class="key">effectiveDate</span>: <span class="string">"October 15, 2023"</span>,</div>
+                <div><span class="key">website</span>: <span class="string">"saurabh.qzz.io"</span>,</div>
+                <div><span class="key">owner</span>: <span class="string">"Saurabh"</span>,</div>
+                <div><span class="key">contact</span>: <span class="string">"hello@saurabh.qzz.io"</span></div>
+            </div>
+            <div>};</div>
+        </div>
+
+        <div class="privacy-section">
+            <h2 class="section-title">
                 <i class="fas fa-shield-alt section-icon"></i>
                 Information We Collect
-            </div>
+            </h2>
             <div class="section-content">
                 <p>We collect information you provide directly to us, such as when you contact us through our website:</p>
                 <ul>
@@ -139,11 +470,13 @@
                     <li>IP address and browser information for security purposes</li>
                 </ul>
             </div>
+        </div>
 
-            <div class="section-title">
+        <div class="privacy-section">
+            <h2 class="section-title">
                 <i class="fas fa-cogs section-icon"></i>
                 How We Use Your Information
-            </div>
+            </h2>
             <div class="section-content">
                 <p>We use the information we collect to:</p>
                 <ul>
@@ -153,11 +486,13 @@
                     <li>Monitor and analyze usage trends</li>
                 </ul>
             </div>
+        </div>
 
-            <div class="section-title">
+        <div class="privacy-section">
+            <h2 class="section-title">
                 <i class="fas fa-share-alt section-icon"></i>
                 Information Sharing
-            </div>
+            </h2>
             <div class="section-content">
                 <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except:</p>
                 <ul>
@@ -166,11 +501,13 @@
                     <li>In connection with a business transfer or merger</li>
                 </ul>
             </div>
+        </div>
 
-            <div class="section-title">
+        <div class="privacy-section">
+            <h2 class="section-title">
                 <i class="fas fa-lock section-icon"></i>
                 Data Security
-            </div>
+            </h2>
             <div class="section-content">
                 <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These include:</p>
                 <ul>
@@ -179,11 +516,13 @@
                     <li>Regular security reviews and updates</li>
                 </ul>
             </div>
+        </div>
 
-            <div class="section-title">
+        <div class="privacy-section">
+            <h2 class="section-title">
                 <i class="fas fa-user-shield section-icon"></i>
                 Your Privacy Rights
-            </div>
+            </h2>
             <div class="section-content">
                 <p>You have the right to:</p>
                 <ul>
@@ -194,33 +533,65 @@
                 </ul>
                 <p>To exercise these rights, please contact us at <span class="highlight">privacy@saurabh.qzz.io</span>.</p>
             </div>
+        </div>
 
-            <div class="section-title">
+        <div class="privacy-section">
+            <h2 class="section-title">
                 <i class="fas fa-sync-alt section-icon"></i>
                 Changes to This Policy
-            </div>
+            </h2>
             <div class="section-content">
                 <p>We may update this privacy policy from time to time. The updated version will be indicated by a revised "Last Updated" date and the updated version will be effective as soon as it is accessible.</p>
                 <p>We encourage you to review this privacy policy frequently to stay informed about how we are protecting your information.</p>
-            </div>
-
-            <div class="section-title">
-                <i class="fas fa-envelope section-icon"></i>
-                Contact Information
-            </div>
-            <div class="section-content">
-                <p>If you have any questions about this Privacy Policy, please contact us:</p>
-                <ul>
-                    <li>Email: <span class="highlight">privacy@saurabh.qzz.io</span></li>
-                    <li>Website: <span class="highlight">saurabh.qzz.io</span></li>
-                </ul>
                 <p class="last-updated">Last Updated: October 15, 2023</p>
             </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://linkedin.com/in/saurabh" class="social-link" target="_blank">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/saurabh" class="social-link" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://twitter.com/saurabh" class="social-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="mailto:hello@saurabh.qzz.io" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
         </div>
     </div>
 
     <footer>
         Made with ❤️ by Sauravhhh
     </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu li a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && !navMenu.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
