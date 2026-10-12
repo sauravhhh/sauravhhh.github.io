@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f6f8f7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#101514" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <title>Email Addresses</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f6f8f7;
+      --surface: #ffffff;
+      --surface-muted: #edf2f0;
+      --text: #12201c;
+      --muted: #5d6d67;
+      --line: #dce5e1;
+      --accent: #087b63;
+      --accent-soft: #dff3ec;
+      --accent-ink: #05614e;
+      --button: #17231f;
+      --button-ink: #ffffff;
+      --tag-warn: #fff2d7;
+      --tag-warn-ink: #785217;
+      --search: #ffffff;
+      --shadow: 0 10px 28px rgba(28, 49, 42, .06);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101514;
+        --surface: #161d1b;
+        --surface-muted: #1d2925;
+        --text: #edf5f1;
+        --muted: #a3b3ad;
+        --line: #293732;
+        --accent: #63d3b4;
+        --accent-soft: #183a30;
+        --accent-ink: #86e0c6;
+        --button: #edf5f1;
+        --button-ink: #111916;
+        --tag-warn: #3a3020;
+        --tag-warn-ink: #efd49c;
+        --search: #161d1b;
+        --shadow: 0 14px 34px rgba(0, 0, 0, .18);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.45;
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      width: min(100%, 980px);
+      margin: 0 auto;
+      padding: max(24px, env(safe-area-inset-top)) 18px max(56px, env(safe-area-inset-bottom));
+    }
+
+    .intro {
+      display: grid;
+      gap: 24px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      max-width: 700px;
+      margin: 0;
+      font-size: clamp(2.3rem, 7vw, 4.4rem);
+      line-height: .94;
+      letter-spacing: -.06em;
+      font-weight: 600;
+    }
+
+    .lede {
+      margin: 0;
+      max-width: 570px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .stats {
+      display: flex;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stat {
+      min-width: 96px;
+      padding: 13px 15px;
+      border-radius: 14px;
+      background: var(--surface-muted);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .76rem;
+    }
+
+    .directory-tools {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0 14px;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      width: 18px;
+      height: 18px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 16px 11px 44px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      outline: none;
+      background: var(--search);
+      color: var(--text);
+      box-shadow: 0 3px 12px rgba(28, 49, 42, .035);
+    }
+
+    .search::placeholder { color: var(--muted); opacity: .8; }
+    .search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+
+    .visible-count {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: .78rem;
+      white-space: nowrap;
+    }
+
+    .groups {
+      display: grid;
+      gap: 14px;
+    }
+
+    .group[hidden], .address-row[hidden] { display: none !important; }
+
+    .empty-state {
+      display: none;
+      padding: 44px 20px;
+      border: 1px dashed var(--line);
+      border-radius: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .empty-state.show { display: block; }
+
+    .group {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .group-heading {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 16px 17px;
+      background: color-mix(in srgb, var(--surface-muted) 54%, var(--surface));
+    }
+
+    .mark {
+      display: grid;
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent-ink);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: .74rem;
+      font-weight: 500;
+    }
+
+    .group:nth-child(2) .mark { background: #e4edff; color: #2d5ba4; }
+    .group:nth-child(3) .mark { background: #f1e9ff; color: #7050a2; }
+    .group:nth-child(4) .mark { background: #ffeadf; color: #98502b; }
+    .group:nth-child(5) .mark { background: #e9edf0; color: #526169; }
+
+    @media (prefers-color-scheme: dark) {
+      .group:nth-child(2) .mark { background: #1c2d4a; color: #a9c7ff; }
+      .group:nth-child(3) .mark { background: #312341; color: #d7b5ff; }
+      .group:nth-child(4) .mark { background: #41291f; color: #ffc1a1; }
+      .group:nth-child(5) .mark { background: #273036; color: #c5d0d6; }
+    }
+
+    .group h2 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+
+    .count {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .address-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .address-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      min-height: 70px;
+      margin: 0 16px;
+      padding: 13px 2px;
+      border-top: 1px solid var(--line);
+    }
+
+    .address-info {
+      min-width: 0;
+    }
+
+    .email {
+      display: block;
+      overflow-wrap: anywhere;
+      color: var(--text);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: clamp(.78rem, 3.4vw, .91rem);
+      line-height: 1.5;
+    }
+
+    .tag {
+      display: inline-flex;
+      margin-top: 6px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-ink);
+      font-size: .7rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .tag.restricted {
+      background: var(--tag-warn);
+      color: var(--tag-warn-ink);
+    }
+
+    .copy {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-width: 84px;
+      min-height: 40px;
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--surface-muted);
+      color: var(--text);
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 600;
+      transition: background-color .18s ease, color .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .copy:hover { background: var(--accent-soft); color: var(--accent-ink); }
+    .copy:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent); outline-offset: 2px; }
+    .copy.copied { background: var(--accent); color: #fff; }
+
+    .copy svg {
+      width: 15px;
+      height: 15px;
+      flex: 0 0 auto;
+      stroke: currentColor;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 10;
+      left: 50%;
+      bottom: max(22px, env(safe-area-inset-bottom));
+      transform: translate(-50%, 18px);
+      max-width: calc(100vw - 32px);
+      padding: 10px 15px;
+      border-radius: 10px;
+      background: var(--button);
+      color: var(--button-ink);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+      font-size: .82rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      white-space: nowrap;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (min-width: 720px) {
+      .page { padding-left: 30px; padding-right: 30px; }
+      .intro {
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        padding-top: 38px;
+        padding-bottom: 38px;
+      }
+      .lede { font-size: 1.12rem; }
+      .stats { padding-bottom: 4px; }
+      .groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .group:first-child,
+      .group:nth-child(2) { grid-column: auto; }
+      .group:last-child { grid-column: 1 / -1; }
+      .group:last-child .address-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .group:last-child .address-row { grid-template-columns: minmax(0, 1fr); align-content: space-between; border-top: 1px solid var(--line); }
+      .group:last-child .address-row + .address-row { border-left: 1px solid var(--line); }
+      .group:last-child .copy { width: 100%; }
+    }
+
+    @media (max-width: 390px) {
+      .address-row { grid-template-columns: minmax(0, 1fr) 42px; gap: 8px; }
+      .copy { min-width: 42px; width: 42px; padding: 9px; }
+      .copy span { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <h1 id="page-title">Every inbox,<br />neatly together.</h1>
+        <p class="lede">A clean directory of the email addresses created across your mail services. Tap any address to copy it.</p>
+      </div>
+      <ul class="stats" aria-label="Directory summary">
+        <li class="stat"><strong>16</strong><span>addresses</span></li>
+        <li class="stat"><strong>5</strong><span>groups</span></li>
+      </ul>
+    </section>
+
+    <section class="directory-tools" aria-label="Search addresses">
+      <label class="search-wrap">
+        <span class="sr-only">Search addresses or providers</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+        <input class="search" type="search" placeholder="Search address or provider" autocomplete="off" />
+      </label>
+      <span class="visible-count" aria-live="polite">16 shown</span>
+    </section>
+
+    <section class="groups" aria-label="Email address groups">
+      <article class="group">
+        <header class="group-heading">
+          <span class="mark" aria-hidden="true">LU</span>
+          <h2>Lumbox</h2>
+          <span class="count">6 addresses</span>
+        </header>
+        <ul class="address-list">
+          <li class="address-row">
+            <div class="address-info"><code class="email">saurabh@trylumbox.com</code><span class="tag">Primary</span></div>
+            <button class="copy" type="button" data-copy="saurabh@trylumbox.com" aria-label="Copy saurabh@trylumbox.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">india@trylumbox.com</code></div>
+            <button class="copy" type="button" data-copy="india@trylumbox.com" aria-label="Copy india@trylumbox.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">shaktiman@trylumbox.com</code><span class="tag restricted">Archived fallback</span></div>
+            <button class="copy" type="button" data-copy="shaktiman@trylumbox.com" aria-label="Copy shaktiman@trylumbox.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">saurabh-agent@trylumbox.com</code><span class="tag restricted">Archived fallback</span></div>
+            <button class="copy" type="button" data-copy="saurabh-agent@trylumbox.com" aria-label="Copy saurabh-agent@trylumbox.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">saurabhh@trylumbox.com</code><span class="tag restricted">Archived fallback</span></div>
+            <button class="copy" type="button" data-copy="saurabhh@trylumbox.com" aria-label="Copy saurabhh@trylumbox.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">assam@trylumbox.com</code><span class="tag restricted">Status unclear · active earlier</span></div>
+            <button class="copy" type="button" data-copy="assam@trylumbox.com" aria-label="Copy assam@trylumbox.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+        </ul>
+      </article>
+
+      <article class="group">
+        <header class="group-heading">
+          <span class="mark" aria-hidden="true">DS</span>
+          <h2>Dead Simple</h2>
+          <span class="count">4 addresses</span>
+        </header>
+        <ul class="address-list">
+          <li class="address-row">
+            <div class="address-info"><code class="email">saurabhh_cc0ba4dd@deadsimplemail.com</code></div>
+            <button class="copy" type="button" data-copy="saurabhh_cc0ba4dd@deadsimplemail.com" aria-label="Copy saurabhh_cc0ba4dd@deadsimplemail.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">saurabh_904d8cb0@deadsimplemail.com</code></div>
+            <button class="copy" type="button" data-copy="saurabh_904d8cb0@deadsimplemail.com" aria-label="Copy saurabh_904d8cb0@deadsimplemail.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">a7bd1e9abdf1@deadsimplemail.com</code><span class="tag">Outbound Agent</span></div>
+            <button class="copy" type="button" data-copy="a7bd1e9abdf1@deadsimplemail.com" aria-label="Copy a7bd1e9abdf1@deadsimplemail.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">16464adb0f9e@deadsimplemail.com</code></div>
+            <button class="copy" type="button" data-copy="16464adb0f9e@deadsimplemail.com" aria-label="Copy 16464adb0f9e@deadsimplemail.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+        </ul>
+      </article>
+
+      <article class="group">
+        <header class="group-heading">
+          <span class="mark" aria-hidden="true">SF</span>
+          <h2>SentFromAI</h2>
+          <span class="count">2 addresses</span>
+        </header>
+        <ul class="address-list">
+          <li class="address-row">
+            <div class="address-info"><code class="email">saurabh@mail.sentfrom.ai</code><span class="tag restricted">Receive-only until claimed</span></div>
+            <button class="copy" type="button" data-copy="saurabh@mail.sentfrom.ai" aria-label="Copy saurabh@mail.sentfrom.ai"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">agent-ec6059885b83b48cd1bcc71a@mail.sentfrom.ai</code><span class="tag restricted">Replaced</span></div>
+            <button class="copy" type="button" data-copy="agent-ec6059885b83b48cd1bcc71a@mail.sentfrom.ai" aria-label="Copy agent-ec6059885b83b48cd1bcc71a@mail.sentfrom.ai"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+        </ul>
+      </article>
+
+      <article class="group">
+        <header class="group-heading">
+          <span class="mark" aria-hidden="true">RM</span>
+          <h2>Robot Mail</h2>
+          <span class="count">1 address</span>
+        </header>
+        <ul class="address-list">
+          <li class="address-row">
+            <div class="address-info"><code class="email">hey@robotomail.co</code></div>
+            <button class="copy" type="button" data-copy="hey@robotomail.co" aria-label="Copy hey@robotomail.co"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+        </ul>
+      </article>
+
+      <article class="group">
+        <header class="group-heading">
+          <span class="mark" aria-hidden="true">AR</span>
+          <h2>Older</h2>
+          <span class="count">3 addresses</span>
+        </header>
+        <ul class="address-list">
+          <li class="address-row">
+            <div class="address-info"><code class="email">saurabhh@agentmail.to</code><span class="tag">AgentMail</span></div>
+            <button class="copy" type="button" data-copy="saurabhh@agentmail.to" aria-label="Copy saurabhh@agentmail.to"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">shaktiman_0100f88b@box1.deadsimple.email</code><span class="tag">Dead Simple</span></div>
+            <button class="copy" type="button" data-copy="shaktiman_0100f88b@box1.deadsimple.email" aria-label="Copy shaktiman_0100f88b@box1.deadsimple.email"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+          <li class="address-row">
+            <div class="address-info"><code class="email">hello@saurabhh.mails.ai</code><span class="tag">mails.ai sender</span></div>
+            <button class="copy" type="button" data-copy="hello@saurabhh.mails.ai" aria-label="Copy hello@saurabhh.mails.ai"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copy</span></button>
+          </li>
+        </ul>
+      </article>
+    </section>
+    <div class="empty-state" role="status">No matching address found.</div>
+  </main>
+
+  <div class="toast" role="status" aria-live="polite">Address copied</div>
+
+  <script>
+    (function () {
+      var toast = document.querySelector('.toast');
+      var toastTimer;
+
+      function showToast() {
+        clearTimeout(toastTimer);
+        toast.classList.add('show');
+        toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 1500);
+      }
+
+      function fallbackCopy(text) {
+        var area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        document.body.removeChild(area);
+      }
+
+      var search = document.querySelector('.search');
+      var visibleCount = document.querySelector('.visible-count');
+      var emptyState = document.querySelector('.empty-state');
+
+      function filterDirectory() {
+        var query = search.value.trim().toLowerCase();
+        var shown = 0;
+
+        document.querySelectorAll('.group').forEach(function (group) {
+          var provider = group.querySelector('h2').textContent.toLowerCase();
+          var groupShown = 0;
+          group.querySelectorAll('.address-row').forEach(function (row) {
+            var matches = !query || provider.indexOf(query) !== -1 || row.textContent.toLowerCase().indexOf(query) !== -1;
+            row.hidden = !matches;
+            if (matches) groupShown += 1;
+          });
+          group.hidden = groupShown === 0;
+          group.querySelector('.count').textContent = groupShown + (groupShown === 1 ? ' address' : ' addresses');
+          shown += groupShown;
+        });
+
+        visibleCount.textContent = shown + ' shown';
+        emptyState.classList.toggle('show', shown === 0);
+      }
+
+      search.addEventListener('input', filterDirectory);
+
+      document.addEventListener('click', function (event) {
+        var button = event.target.closest('[data-copy]');
+        if (!button) return;
+        var text = button.getAttribute('data-copy');
+        var task = navigator.clipboard && window.isSecureContext
+          ? navigator.clipboard.writeText(text)
+          : Promise.resolve(fallbackCopy(text));
+
+        task.then(function () {
+          document.querySelectorAll('.copy.copied').forEach(function (item) {
+            item.classList.remove('copied');
+            var label = item.querySelector('span');
+            if (label) label.textContent = 'Copy';
+          });
+          button.classList.add('copied');
+          var label = button.querySelector('span');
+          if (label) label.textContent = 'Copied';
+          showToast();
+          setTimeout(function () {
+            button.classList.remove('copied');
+            if (label) label.textContent = 'Copy';
+          }, 1500);
+        });
+      });
+    }());
+  </script>
+</body>
+</html>
