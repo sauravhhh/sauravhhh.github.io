@@ -39,19 +39,19 @@
   .nav-links a:hover { color: var(--ink); }
   #menuBtn {
     display: none; position: relative; z-index: 60;
-    width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 10px;
-    background: #fff; cursor: pointer; padding: 0;
+    width: 42px; height: 36px; border: 1px solid var(--line); border-radius: 8px;
+    background: none; cursor: pointer; padding: 0;
   }
   #menuBtn span {
     position: absolute; left: 10px; right: 10px; height: 2px; border-radius: 2px;
-    background: var(--ink); transition: transform .25s ease, opacity .2s ease;
+    background: var(--ink); transition: transform .25s ease, opacity .2s ease, top .25s ease;
   }
-  #menuBtn span:nth-child(1) { top: 13px; }
-  #menuBtn span:nth-child(2) { top: 20px; }
-  #menuBtn span:nth-child(3) { top: 27px; }
-  #menuBtn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #menuBtn span:nth-child(1) { top: 11px; }
+  #menuBtn span:nth-child(2) { top: 17px; }
+  #menuBtn span:nth-child(3) { top: 23px; }
+  #menuBtn.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
   #menuBtn.open span:nth-child(2) { opacity: 0; }
-  #menuBtn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  #menuBtn.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
   #mobileMenu {
     position: fixed; inset: 0; z-index: 55; background: #fff;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
