@@ -1,630 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurabh - Full Stack Developer</title>
-    <meta name="description" content="Saurabh - Full Stack Developer and Digital Marketing Expert">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --text-muted: #6e7681;
-            --accent-green: #238636;
-            --accent-blue: #1f6feb;
-            --accent-purple: #8b5cf6;
-            --border-color: #30363d;
-            --border-muted: #21262d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Terminal-style header */
-        .terminal-header {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px 8px 0 0;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            margin-bottom: 0;
-        }
-
-        .terminal-dots {
-            display: flex;
-            gap: 6px;
-        }
-
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .terminal-dot.red { background-color: #ff5f56; }
-        .terminal-dot.yellow { background-color: #ffbd2e; }
-        .terminal-dot.green { background-color: #27ca3f; }
-
-        .terminal-title {
-            color: var(--text-secondary);
-            margin-left: 12px;
-        }
-
-        /* Main content area */
-        .main-content {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        /* Hero section */
-        .hero {
-            padding: 40px;
-            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
-            border-bottom: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-green);
-            margin: 0 auto 24px;
-            background-color: var(--bg-tertiary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 0 4px rgba(35, 134, 54, 0.1);
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 4px rgba(35, 134, 54, 0.2);
-        }
-
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .name {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .title {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            margin-bottom: 16px;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: var(--bg-primary);
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--accent-green);
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* Content sections */
-        .content {
-            padding: 40px;
-        }
-
-        .section {
-            margin-bottom: 48px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .section-header h2 {
-            color: var(--text-primary);
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .section-icon {
-            color: var(--accent-green);
-            font-size: 1.2rem;
-        }
-
-        .line-numbers {
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            margin-right: 16px;
-            user-select: none;
-        }
-
-        /* About section */
-        .about-content {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 24px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            position: relative;
-        }
-
-        .about-content::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, var(--accent-green), var(--accent-blue));
-            border-radius: 2px;
-        }
-
-        /* Skills grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-category {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            border-color: var(--accent-green);
-            transform: translateY(-2px);
-        }
-
-        .skill-category h3 {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .skill-tag {
-            background-color: var(--bg-tertiary);
-            color: var(--text-primary);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
-            border: 1px solid var(--border-muted);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .skill-tag:hover {
-            background-color: var(--accent-green);
-            border-color: var(--accent-green);
-            transform: translateY(-1px);
-        }
-
-        /* Languages */
-        .languages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        .language-item {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .language-item:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-
-        .language-name {
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 6px;
-        }
-
-        .language-level {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Contact section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .contact-item {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .contact-item:hover {
-            border-color: var(--accent-purple);
-            background-color: rgba(139, 92, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .contact-icon {
-            font-size: 1.5rem;
-            color: var(--accent-purple);
-        }
-
-        .contact-details h3 {
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .contact-details p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Code-like styling */
-        .code-block {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 16px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin: 16px 0;
-            overflow-x: auto;
-        }
-
-        .code-comment {
-            color: var(--text-muted);
-        }
-
-        .code-string {
-            color: var(--accent-green);
-        }
-
-        .code-keyword {
-            color: var(--accent-blue);
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .container {
-                padding: 12px;
-            }
-
-            .hero {
-                padding: 30px 20px;
-            }
-
-            .content {
-                padding: 30px 20px;
-            }
-
-            .name {
-                font-size: 2rem;
-            }
-
-            .title {
-                font-size: 1.1rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .languages-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-
-            .profile-pic {
-                width: 100px;
-                height: 100px;
-                font-size: 40px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .terminal-header {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-
-            .terminal-title {
-                display: none;
-            }
-
-            .hero {
-                padding: 25px 15px;
-            }
-
-            .content {
-                padding: 25px 15px;
-            }
-
-            .name {
-                font-size: 1.8rem;
-            }
-
-            .section {
-                margin-bottom: 32px;
-            }
-
-            .languages-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .main-content {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .section {
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .section:nth-child(1) { animation-delay: 0.1s; }
-        .section:nth-child(2) { animation-delay: 0.2s; }
-        .section:nth-child(3) { animation-delay: 0.3s; }
-        .section:nth-child(4) { animation-delay: 0.4s; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saurabh Saha — Full Stack Developer</title>
+<meta name="description" content="Saurabh Saha is a full stack developer and digital marketing expert based in Assam, India. 60+ web tools built and shipped.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f8fafc;
+    --ink: #0f172a;
+    --ink-soft: #475569;
+    --ink-faint: #94a3b8;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --line: #e2e8f0;
+    --card: #ffffff;
+    --radius: 14px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+  .brand span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; font-size: 0.95rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 0.9rem; font-weight: 600; color: #fff !important;
+    background: var(--ink); padding: 9px 18px; border-radius: 999px;
+  }
+  .nav-cta:hover { background: #1e293b; }
+
+  /* Hero */
+  .hero { padding: 110px 0 90px; }
+  .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; font-weight: 600; color: #15803d;
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
+  }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+  h1 { font-size: 3.4rem; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 18px; }
+  h1 .hl { color: var(--accent); }
+  .hero-sub { font-size: 1.18rem; color: var(--ink-soft); max-width: 520px; margin-bottom: 34px; }
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 600; font-size: 0.98rem;
+    padding: 13px 26px; border-radius: 10px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 20px rgba(37,99,235,0.25); }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--ink); background: #fff; }
+  .btn-ghost:hover { border-color: var(--ink-faint); transform: translateY(-2px); }
+  .hero-card {
+    background: var(--ink); color: #e2e8f0; border-radius: 18px;
+    padding: 30px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88rem; line-height: 1.9;
+    box-shadow: 0 24px 60px rgba(15,23,42,0.25);
+  }
+  .hero-card .k { color: #93c5fd; } .hero-card .s { color: #86efac; } .hero-card .c { color: #64748b; }
+
+  /* Sections */
+  section { padding: 84px 0; }
+  section.alt { background: var(--bg-soft); }
+  .sec-label {
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+  }
+  h2 { font-size: 2.1rem; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .sec-desc { color: var(--ink-soft); max-width: 640px; margin-bottom: 44px; font-size: 1.05rem; }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .about-grid p { color: var(--ink-soft); margin-bottom: 16px; }
+  .fact-list { list-style: none; }
+  .fact-list li {
+    display: flex; gap: 12px; padding: 14px 0;
+    border-bottom: 1px solid var(--line); font-size: 0.97rem;
+  }
+  .fact-list li:last-child { border-bottom: none; }
+  .fact-list strong { min-width: 130px; color: var(--ink); font-weight: 600; }
+  .fact-list span { color: var(--ink-soft); }
+
+  /* Skills */
+  .skill-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 26px 22px; transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(15,23,42,0.08); }
+  .skill-card h3 { font-size: 1.02rem; margin-bottom: 14px; }
+  .skill-card .icon {
+    width: 42px; height: 42px; border-radius: 12px; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: #fff; font-size: 1.05rem;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 0.82rem; font-weight: 500; color: var(--ink-soft);
+    background: var(--bg-soft); border: 1px solid var(--line);
+    padding: 5px 12px; border-radius: 999px;
+  }
+
+  /* Projects */
+  .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .proj-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px 24px; display: flex; flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .proj-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(15,23,42,0.08); }
+  .proj-card h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .proj-card p { font-size: 0.93rem; color: var(--ink-soft); margin-bottom: 18px; flex: 1; }
+  .proj-link { font-weight: 600; font-size: 0.92rem; color: var(--accent); }
+  .proj-link:hover { color: var(--accent-dark); }
+  .proj-link::after { content: " \2197"; }
+  .more-strip {
+    margin-top: 26px; text-align: center;
+    border: 1px dashed var(--line); border-radius: var(--radius);
+    padding: 26px; color: var(--ink-soft); font-size: 0.98rem; background: #fff;
+  }
+  .more-strip a { color: var(--accent); font-weight: 600; }
+
+  /* Contact */
+  .contact-box {
+    background: var(--ink); color: #e2e8f0; border-radius: 20px;
+    padding: 64px 48px; text-align: center;
+  }
+  .contact-box h2 { color: #fff; }
+  .contact-box p { color: #94a3b8; max-width: 520px; margin: 0 auto 32px; }
+  .contact-box .btn-ghost { background: transparent; border-color: #334155; color: #fff; }
+  .contact-box .btn-ghost:hover { border-color: #64748b; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--ink-faint); font-size: 0.88rem; }
+  .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+
+  @media (max-width: 860px) {
+    h1 { font-size: 2.4rem; }
+    .hero { padding: 70px 0 60px; }
+    .hero-grid, .about-grid { grid-template-columns: 1fr; }
+    .skill-grid { grid-template-columns: repeat(2, 1fr); }
+    .proj-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .contact-box { padding: 44px 24px; }
+    section { padding: 60px 0; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Terminal-style header -->
-        <div class="terminal-header">
-            <div class="terminal-dots">
-                <div class="terminal-dot red"></div>
-                <div class="terminal-dot yellow"></div>
-                <div class="terminal-dot green"></div>
-            </div>
-            <div class="terminal-title">saurabh@portfolio:~$</div>
-        </div>
 
-        <div class="main-content">
-            <!-- Hero Section -->
-            <div class="hero">
-                <div class="profile-pic" id="profilePic">
-                    👨‍💻
-                </div>
-                <h1 class="name">Saurabh</h1>
-                <p class="title">Full Stack Developer & Digital Marketing Expert</p>
-                <div class="status-badge">
-                    <div class="status-dot"></div>
-                    Available for work
-                </div>
-            </div>
+<nav>
+  <div class="wrap nav-inner">
+    <a href="#" class="brand">saurabh<span>.</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
 
-            <div class="content">
-                <!-- About Section -->
-                <div class="section">
-                    <div class="section-header">
-                        <span class="line-numbers">01</span>
-                        <span class="section-icon">📖</span>
-                        <h2>README.md</h2>
-                    </div>
-                    <div class="about-content">
-                        <div class="code-block">
-                            <span class="code-comment">// About Saurabh</span><br>
-                            <span class="code-keyword">const</span> saurabh = {<br>
-                            &nbsp;&nbsp;role: <span class="code-string">"Full Stack Developer"</span>,<br>
-                            &nbsp;&nbsp;passion: <span class="code-string">"Creating digital experiences"</span>,<br>
-                            &nbsp;&nbsp;focus: <span class="code-string">"Web development & Digital marketing"</span><br>
-                            };
-                        </div>
-                        Hey there! I'm a passionate developer who loves bringing ideas to life through 
-                        clean code and innovative solutions. I specialize in full-stack web development 
-                        and digital marketing, always excited to tackle new challenges and learn cutting-edge 
-                        technologies.
-                    </div>
-                </div>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Available for work</div>
+      <h1>Hi, I'm Saurabh Saha.<br><span class="hl">I build things for the web.</span></h1>
+      <p class="hero-sub">Full stack developer and digital marketing expert based in Assam, India. I turn ideas into fast, clean, working products — 60+ shipped and counting.</p>
+      <div class="btn-row">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="https://github.com/sauravhhh" target="_blank" rel="noopener" class="btn btn-ghost">GitHub Profile</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="c">// about.js</div>
+      <div><span class="k">const</span> saurabh = {</div>
+      <div>&nbsp;&nbsp;name: <span class="s">"Saurabh Saha"</span>,</div>
+      <div>&nbsp;&nbsp;role: <span class="s">"Full Stack Developer"</span>,</div>
+      <div>&nbsp;&nbsp;base: <span class="s">"Assam, India"</span>,</div>
+      <div>&nbsp;&nbsp;education: [<span class="s">"B.Com"</span>, <span class="s">"PGDCA"</span>],</div>
+      <div>&nbsp;&nbsp;shipsFast: <span class="k">true</span>,</div>
+      <div>&nbsp;&nbsp;openToWork: <span class="k">true</span></div>
+      <div>};</div>
+    </div>
+  </div>
+</header>
 
-                <!-- Skills Section -->
-                <div class="section">
-                    <div class="section-header">
-                        <span class="line-numbers">02</span>
-                        <span class="section-icon">⚡</span>
-                        <h2>Tech Stack</h2>
-                    </div>
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <h3>💻 Frontend Development</h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">HTML</span>
-                                <span class="skill-tag">CSS</span>
-                                <span class="skill-tag">JavaScript</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h3>🎨 Design & Creative</h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Photoshop</span>
-                                <span class="skill-tag">UI/UX</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h3>📊 Business & Analytics</h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Tally ERP</span>
-                                <span class="skill-tag">MS Excel</span>
-                                <span class="skill-tag">MS Word</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <h3>📱 Digital Marketing</h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">SEO/SEM</span>
-                                <span class="skill-tag">Instagram Marketing</span>
-                                <span class="skill-tag">Content Strategy</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<section id="about" class="alt">
+  <div class="wrap">
+    <div class="sec-label">About</div>
+    <h2>Developer, marketer, shipper.</h2>
+    <p class="sec-desc">I care about products that work in the real world — fast to load, simple to use, and built to solve an actual problem.</p>
+    <div class="about-grid">
+      <div>
+        <p>I'm Saurabh Saha, a 25-year-old developer from Assam, India, with a B.Com degree and a PGDCA. I work across the full stack — from interface design to deployment — and pair that with digital marketing so the things I build actually reach people.</p>
+        <p>My approach is simple: start with the problem, ship the smallest thing that solves it, then iterate. That is how a personal toolkit of small utilities grew into 60+ public web apps, used by real people every day.</p>
+        <p>Alongside development, I run a small merch storefront and create content around the tools I build.</p>
+      </div>
+      <ul class="fact-list">
+        <li><strong>Location</strong><span>Assam, India</span></li>
+        <li><strong>Education</strong><span>B.Com, PGDCA</span></li>
+        <li><strong>Experience</strong><span>Full stack web development, UI/UX, digital marketing</span></li>
+        <li><strong>Languages</strong><span>English, Assamese, Hindi, Bengali (fluent) · Nepali (basic)</span></li>
+        <li><strong>Currently</strong><span>Open to freelance and full-time opportunities</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-                <!-- Languages Section -->
-                <div class="section">
-                    <div class="section-header">
-                        <span class="line-numbers">03</span>
-                        <span class="section-icon">🌐</span>
-                        <h2>Languages</h2>
-                    </div>
-                    <div class="languages-grid">
-                        <div class="language-item">
-                            <div class="language-name">English</div>
-                            <div class="language-level">fluent</div>
-                        </div>
-                        <div class="language-item">
-                            <div class="language-name">Assamese</div>
-                            <div class="language-level">fluent</div>
-                        </div>
-                        <div class="language-item">
-                            <div class="language-name">Hindi</div>
-                            <div class="language-level">fluent</div>
-                        </div>
-                        <div class="language-item">
-                            <div class="language-name">Bengali</div>
-                            <div class="language-level">fluent</div>
-                        </div>
-                        <div class="language-item">
-                            <div class="language-name">Nepali</div>
-                            <div class="language-level">basic</div>
-                        </div>
-                    </div>
-                </div>
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label">Skills</div>
+    <h2>What I work with.</h2>
+    <p class="sec-desc">A practical toolkit built from shipping real projects, not tutorials.</p>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <div class="icon" style="background:#2563eb">FE</div>
+        <h3>Frontend Development</h3>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Responsive Design</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="icon" style="background:#7c3aed">UX</div>
+        <h3>Design &amp; Creative</h3>
+        <div class="tags"><span class="tag">UI/UX</span><span class="tag">Photoshop</span><span class="tag">Wireframing</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="icon" style="background:#059669">MK</div>
+        <h3>Digital Marketing</h3>
+        <div class="tags"><span class="tag">SEO / SEM</span><span class="tag">Instagram Marketing</span><span class="tag">Content Strategy</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="icon" style="background:#d97706">BA</div>
+        <h3>Business &amp; Analytics</h3>
+        <div class="tags"><span class="tag">Tally ERP</span><span class="tag">MS Excel</span><span class="tag">MS Word</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <!-- Contact Section -->
-                <div class="section">
-                    <div class="section-header">
-                        <span class="line-numbers">04</span>
-                        <span class="section-icon">📞</span>
-                        <h2>Connect</h2>
-                    </div>
-                    <div class="contact-grid">
-                        <a href="mailto:hello@saurabh.qzz.io" class="contact-item">
-                            <div class="contact-icon">📧</div>
-                            <div class="contact-details">
-                                <h3>Email</h3>
-                                <p>hello@saurabh.qzz.io</p>
-                            </div>
-                        </a>
-                        <a href="https://g
+<section id="projects" class="alt">
+  <div class="wrap">
+    <div class="sec-label">Projects</div>
+    <h2>Selected work.</h2>
+    <p class="sec-desc">A few of the tools I've designed, built, and deployed. All live, all used.</p>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <h3>Artho</h3>
+        <p>Assamese–English dictionary with instant live lookup, dark mode, and a clean mobile-first interface.</p>
+        <a class="proj-link" href="https://arthoo.vercel.app" target="_blank" rel="noopener">Open live</a>
+      </div>
+      <div class="proj-card">
+        <h3>TypeSpeed</h3>
+        <p>Typing speed test with 30s / 60s / 2-min modes, live WPM and accuracy tracking, and personal bests.</p>
+        <a class="proj-link" href="https://sauravhhh.github.io/TypeSpeed/" target="_blank" rel="noopener">Open live</a>
+      </div>
+      <div class="proj-card">
+        <h3>SpinWheel</h3>
+        <p>Fun decision wheel with editable options, presets, sounds, confetti, and a minimalist monochrome design.</p>
+        <a class="proj-link" href="https://sauravhhh.github.io/SpinWheel/" target="_blank" rel="noopener">Open live</a>
+      </div>
+      <div class="proj-card">
+        <h3>FitScore</h3>
+        <p>Compact health calculator — BMI, BMR, and daily calorie needs in one fast, mobile-friendly page.</p>
+        <a class="proj-link" href="https://sauravhhh.github.io/FitScore/" target="_blank" rel="noopener">Open live</a>
+      </div>
+      <div class="proj-card">
+        <h3>EarthQ</h3>
+        <p>Live earthquake tracker on USGS data — map view, magnitude filters, and IST timestamps.</p>
+        <a class="proj-link" href="https://earthqck.vercel.app" target="_blank" rel="noopener">Open live</a>
+      </div>
+      <div class="proj-card">
+        <h3>Merch Store</h3>
+        <p>Print-on-demand storefront with original typography designs, including the Mon Jay Bengali tee.</p>
+        <a class="proj-link" href="https://sauravhhh.printify.me" target="_blank" rel="noopener">Visit store</a>
+      </div>
+    </div>
+    <div class="more-strip">
+      Plus 50+ more utilities, calculators, and experiments — all open source on
+      <a href="https://github.com/sauravhhh" target="_blank" rel="noopener">GitHub</a>.
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <div class="sec-label" style="color:#93c5fd">Contact</div>
+      <h2>Let's build something.</h2>
+      <p>Have a project in mind, a role to fill, or just want to say hello? My inbox is open — I usually reply within a day.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a href="https://github.com/sauravhhh" target="_blank" rel="noopener" class="btn btn-primary">GitHub</a>
+        <a href="https://sauravhhh.printify.me" target="_blank" rel="noopener" class="btn btn-ghost">Merch Store</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>&copy; 2026 Saurabh Saha. Built with care in Assam, India.</div>
+    <div><a href="https://github.com/sauravhhh" target="_blank" rel="noopener">GitHub</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
