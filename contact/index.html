@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact — Saurabh Saha</title>
 <meta name="description" content="Get in touch with Saurabh Saha.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
 <style>
   :root {
     --bg: #ffffff; --bg-soft: #f8fafc;
@@ -27,10 +32,41 @@
     border-bottom: 1px solid var(--line);
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-  .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+  .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; display: inline-flex; align-items: center; gap: 10px; }
+  .brand img { width: 30px; height: 30px; border-radius: 7px; display: block; }
   .brand span { color: var(--accent); }
   .nav-links { display: flex; gap: 24px; font-size: 0.95rem; color: var(--ink-soft); }
   .nav-links a:hover { color: var(--ink); }
+  #menuBtn {
+    display: none; position: relative; z-index: 60;
+    width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 10px;
+    background: #fff; cursor: pointer; padding: 0;
+  }
+  #menuBtn span {
+    position: absolute; left: 10px; right: 10px; height: 2px; border-radius: 2px;
+    background: var(--ink); transition: transform .25s ease, opacity .2s ease;
+  }
+  #menuBtn span:nth-child(1) { top: 13px; }
+  #menuBtn span:nth-child(2) { top: 20px; }
+  #menuBtn span:nth-child(3) { top: 27px; }
+  #menuBtn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #menuBtn.open span:nth-child(2) { opacity: 0; }
+  #menuBtn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  #mobileMenu {
+    position: fixed; inset: 0; z-index: 55; background: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    clip-path: circle(0px at var(--cx, 90%) var(--cy, 40px));
+    -webkit-clip-path: circle(0px at var(--cx, 90%) var(--cy, 40px));
+    transition: clip-path .45s ease, -webkit-clip-path .45s ease;
+    pointer-events: none;
+  }
+  #mobileMenu.open {
+    clip-path: circle(150% at var(--cx, 90%) var(--cy, 40px));
+    -webkit-clip-path: circle(150% at var(--cx, 90%) var(--cy, 40px));
+    pointer-events: auto;
+  }
+  #mobileMenu a { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; padding: 10px 24px; color: var(--ink); }
+  #mobileMenu a:hover { color: var(--accent); }
   main { padding: 72px 0 96px; }
   h1 { font-size: 2.4rem; letter-spacing: -0.03em; margin-bottom: 12px; }
   .sub { color: var(--ink-soft); font-size: 1.1rem; margin-bottom: 48px; }
@@ -55,19 +91,30 @@
   footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--ink-faint); font-size: 0.9rem; }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   @media (max-width: 640px) { h1 { font-size: 1.8rem; } .cards { grid-template-columns: 1fr; } .nav-links { gap: 16px; font-size: 0.88rem; } }
+  @media (max-width: 560px) {
+    .nav-links { display: none; }
+    #menuBtn { display: block; }
+  }
 </style>
 </head>
 <body>
 <nav>
   <div class="nav-inner">
-    <a class="brand" href="/">Saurabh<span>.</span></a>
+    <a class="brand" href="/"><img src="/logo.svg" alt="Saurabh Saha logo">Saurabh<span>.</span></a>
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/emails/">Emails</a>
       <a href="/privacy/">Privacy</a>
     </div>
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div id="mobileMenu" aria-hidden="true">
+  <a href="/">Home</a>
+  <a href="/emails/">Emails</a>
+  <a href="/privacy/">Privacy</a>
+  <a href="/contact/">Contact</a>
+</div>
 <main>
   <div class="wrap">
     <h1>Let's talk.</h1>
@@ -97,5 +144,34 @@
     <span><a href="/privacy/">Privacy</a> &nbsp;·&nbsp; <a href="/emails/">Emails</a></span>
   </div>
 </footer>
+<script>
+(function(){
+  var menuBtn = document.getElementById("menuBtn"),
+      menu = document.getElementById("mobileMenu");
+  if(!menuBtn || !menu) return;
+  menuBtn.addEventListener("click", function(){
+    var open = menu.classList.toggle("open");
+    menuBtn.classList.toggle("open", open);
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    if(open){
+      var r = menuBtn.getBoundingClientRect();
+      menu.style.setProperty("--cx", (r.left + r.width/2) + "px");
+      menu.style.setProperty("--cy", (r.top + r.height/2) + "px");
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  });
+  menu.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", function(){
+      menu.classList.remove("open");
+      menuBtn.classList.remove("open");
+      menu.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    });
+  });
+})();
+</script>
 </body>
 </html>
