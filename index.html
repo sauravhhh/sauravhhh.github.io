@@ -49,22 +49,22 @@
   .brand span { color: var(--accent); }
   .nav-links { display: flex; gap: 28px; font-size: 0.95rem; color: var(--ink-soft); }
   .nav-links a:hover { color: var(--ink); }
-  /* Hamburger menu button — three burger-colored lines, morphs to X when open */
+  /* Hamburger menu button — burger buns top & bottom, morphs to X when open */
   #menuBtn {
     display: none; position: relative; z-index: 60;
     width: 42px; height: 36px; border: 1px solid var(--line); border-radius: 8px;
     background: none; cursor: pointer; padding: 0;
   }
   #menuBtn span {
-    position: absolute; left: 10px; right: 10px; height: 3px; border-radius: 3px;
-    transition: transform .25s ease, opacity .2s ease, top .25s ease;
+    position: absolute; left: 10px; right: 10px;
+    transition: transform .3s ease, opacity .2s ease, top .3s ease, height .3s ease, border-radius .3s ease;
   }
-  #menuBtn span:nth-child(1) { top: 10px; background: #F5A623; } /* bun */
-  #menuBtn span:nth-child(2) { top: 16.5px; background: #7ED321; } /* lettuce */
-  #menuBtn span:nth-child(3) { top: 23px; background: #6B4226; } /* patty */
-  #menuBtn.open span:nth-child(1) { top: 16.5px; transform: rotate(45deg); }
+  #menuBtn span:nth-child(1) { top: 6px; height: 10px; background: #F5A623; border-radius: 11px 11px 4px 4px; } /* top bun */
+  #menuBtn span:nth-child(2) { top: 17px; height: 3px; background: #7ED321; border-radius: 3px; } /* lettuce */
+  #menuBtn span:nth-child(3) { top: 21px; height: 9px; background: #E8A33D; border-radius: 4px 4px 11px 11px; } /* bottom bun */
+  #menuBtn.open span:nth-child(1) { top: 16px; height: 3px; border-radius: 3px; transform: rotate(45deg); }
   #menuBtn.open span:nth-child(2) { opacity: 0; }
-  #menuBtn.open span:nth-child(3) { top: 16.5px; transform: rotate(-45deg); }
+  #menuBtn.open span:nth-child(3) { top: 16px; height: 3px; border-radius: 3px; transform: rotate(-45deg); }
   #mobileMenu {
     position: fixed; inset: 0; z-index: 40; background: #fff;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
