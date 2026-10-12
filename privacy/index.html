@@ -37,16 +37,22 @@
   .brand span { color: var(--accent); }
   .nav-links { display: flex; gap: 24px; font-size: 0.95rem; color: var(--ink-soft); }
   .nav-links a:hover { color: var(--ink); }
-  /* Burger menu button — a real burger */
+  /* Hamburger menu button — three burger-colored lines, morphs to X when open */
   #menuBtn {
     display: none; position: relative; z-index: 60;
     width: 42px; height: 36px; border: 1px solid var(--line); border-radius: 8px;
     background: none; cursor: pointer; padding: 0;
-    align-items: center; justify-content: center;
   }
-  #menuBtn svg { width: 26px; height: 26px; display: block; }
-  #menuBtn .bun-top { transition: transform .3s ease; }
-  #menuBtn.open .bun-top { transform: translateY(-3.5px); }
+  #menuBtn span {
+    position: absolute; left: 10px; right: 10px; height: 3px; border-radius: 3px;
+    transition: transform .25s ease, opacity .2s ease, top .25s ease;
+  }
+  #menuBtn span:nth-child(1) { top: 10px; background: #F5A623; } /* bun */
+  #menuBtn span:nth-child(2) { top: 16.5px; background: #7ED321; } /* lettuce */
+  #menuBtn span:nth-child(3) { top: 23px; background: #6B4226; } /* patty */
+  #menuBtn.open span:nth-child(1) { top: 16.5px; transform: rotate(45deg); }
+  #menuBtn.open span:nth-child(2) { opacity: 0; }
+  #menuBtn.open span:nth-child(3) { top: 16.5px; transform: rotate(-45deg); }
   #mobileMenu {
     position: fixed; inset: 0; z-index: 40; background: #fff;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
@@ -91,21 +97,7 @@
       <a href="/emails/">Emails</a>
       <a href="/contact/">Contact</a>
     </div>
-    <button id="menuBtn" aria-label="Open menu" aria-expanded="false">
-      <svg viewBox="0 0 48 48" aria-hidden="true">
-        <rect x="8" y="34" width="32" height="7" rx="3.5" fill="#E8A33D"/>
-        <rect x="7" y="28.5" width="34" height="6" rx="3" fill="#6B4226"/>
-        <path d="M7 28.5h34v2c-4.5 0-5.5 3-9.5 3s-5-3-9.5-3-5 3-9.5 3S8 30.5 7 30.5v-2z" fill="#FF9500"/>
-        <path d="M7 24.5q4.25-2.8 8.5 0t8.5 0 8.5 0 8.5 0v4H7z" fill="#7ED321"/>
-        <rect x="9" y="21" width="30" height="4" rx="2" fill="#E0442E"/>
-        <g class="bun-top">
-          <path d="M8 21C8 12 15.5 7 24 7s16 5 16 14z" fill="#F5A623"/>
-          <ellipse cx="17.5" cy="13" rx="1.7" ry="1.1" fill="#FFF6E0" transform="rotate(-18 17.5 13)"/>
-          <ellipse cx="24.5" cy="11" rx="1.7" ry="1.1" fill="#FFF6E0"/>
-          <ellipse cx="31" cy="13.5" rx="1.7" ry="1.1" fill="#FFF6E0" transform="rotate(18 31 13.5)"/>
-        </g>
-      </svg>
-    </button>
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div id="mobileMenu" aria-hidden="true">
