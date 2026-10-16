@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Use — Saurabh Saha</title>
+<meta name="description" content="Terms of use for sauravhhh.github.io">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root {
+    --bg: #ffffff; --bg-soft: #f8fafc;
+    --ink: #0f172a; --ink-soft: #475569; --ink-faint: #94a3b8;
+    --accent: #2563eb; --line: #e2e8f0; --radius: 14px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; display: inline-flex; align-items: center; gap: 10px; }
+  .brand img { width: 30px; height: 30px; border-radius: 7px; display: block; }
+  .brand span { color: var(--accent); }
+  .nav-links { display: flex; gap: 24px; font-size: 0.95rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--ink); }
+  /* Minimalist menu button — three lines, morphs to X when open */
+  #menuBtn {
+    display: none; position: relative; z-index: 60;
+    width: 42px; height: 36px; border: 1px solid var(--line); border-radius: 8px;
+    background: none; cursor: pointer; padding: 0;
+    align-items: center; justify-content: center;
+  }
+  #menuBtn .l1, #menuBtn .l2, #menuBtn .l3 {
+    position: absolute; left: 11px; right: 11px; height: 2px; border-radius: 2px;
+    background: var(--ink); transition: opacity .25s ease, transform .25s ease;
+  }
+  #menuBtn .l1 { top: 12px; }
+  #menuBtn .l2 { top: 17px; }
+  #menuBtn .l3 { top: 22px; }
+  #menuBtn.open .l1 { transform: translateY(5px) rotate(45deg); }
+  #menuBtn.open .l2 { opacity: 0; }
+  #menuBtn.open .l3 { transform: translateY(-5px) rotate(-45deg); }
+  #mobileMenu {
+    position: fixed; inset: 0; z-index: 40; background: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    clip-path: circle(0px at var(--cx, 90%) var(--cy, 40px));
+    -webkit-clip-path: circle(0px at var(--cx, 90%) var(--cy, 40px));
+    transition: clip-path .45s ease, -webkit-clip-path .45s ease;
+    pointer-events: none;
+  }
+  #mobileMenu.open {
+    clip-path: circle(150% at var(--cx, 90%) var(--cy, 40px));
+    -webkit-clip-path: circle(150% at var(--cx, 90%) var(--cy, 40px));
+    pointer-events: auto;
+  }
+  #mobileMenu a { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; padding: 10px 24px; color: var(--ink); }
+  #mobileMenu a:hover { color: var(--accent); }
+  main { padding: 64px 0 96px; }
+  h1 { font-size: 2.2rem; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .updated { color: var(--ink-faint); font-size: 0.9rem; margin-bottom: 40px; }
+  h2 { font-size: 1.25rem; margin: 36px 0 12px; letter-spacing: -0.01em; }
+  p, li { color: var(--ink-soft); margin-bottom: 12px; }
+  ul { padding-left: 22px; }
+  .card {
+    background: var(--bg-soft); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 24px; margin: 28px 0;
+  }
+  .card p { margin-bottom: 0; }
+  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--ink-faint); font-size: 0.9rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 640px) { h1 { font-size: 1.7rem; } .nav-links { gap: 16px; font-size: 0.88rem; } }
+  @media (max-width: 560px) {
+    .nav-links { display: none; }
+    #menuBtn { display: inline-flex; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="/"><img src="/logo.svg" alt="Saurabh Saha logo">Saurabh <span>Saha</span></a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/emails/">Emails</a>
+      <a href="/contact/">Contact</a>
+    </div>
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <span class="l1"></span><span class="l2"></span><span class="l3"></span>
+    </button>
+  </div>
+</nav>
+<div id="mobileMenu" aria-hidden="true">
+  <a href="/">Home</a>
+  <a href="/emails/">Emails</a>
+  <a href="/contact/">Contact</a>
+  <a href="/privacy/">Privacy</a>
+</div>
+<main>
+  <div class="wrap">
+    <h1>Terms of Use</h1>
+    <p class="updated">Last updated: 16 October 2026</p>
+
+    <p>These terms govern your use of this personal website. By using the site, you agree to them.</p>
+
+    <h2>Content</h2>
+    <ul>
+      <li><strong>Personal views.</strong> Everything here — projects, writing, opinions — is my own and does not represent any employer or organisation.</li>
+      <li><strong>No warranties.</strong> The site and its content are provided "as is", without warranties of any kind. I may update or remove content at any time without notice.</li>
+    </ul>
+
+    <h2>Acceptable use</h2>
+    <p>Do not misuse this site: no scraping at abusive rates, no attempts to disrupt the service, and no unlawful use of anything you find here.</p>
+
+    <h2>Intellectual property</h2>
+    <p>Unless stated otherwise, the content on this site — text, design, and code — belongs to me. You may link to it freely; republishing substantial portions requires permission.</p>
+
+    <h2>External links</h2>
+    <p>Links to third-party sites are provided for convenience. I am not responsible for their content or privacy practices.</p>
+
+    <h2>Contact</h2>
+    <div class="card">
+      <p>Questions about these terms? Reach out via the <a href="/contact/" style="color:var(--accent);font-weight:600;">contact page</a>.</p>
+    </div>
+
+    <h2>Changes</h2>
+    <p>If these terms change, the updated date at the top will be revised. Continued use of the site means you accept the current version.</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Saurabh Saha</span>
+    <span><a href="/privacy/">Privacy</a> &nbsp;·&nbsp; <a href="/terms/">Terms</a> &nbsp;·&nbsp; <a href="/contact/">Contact</a></span>
+  </div>
+</footer>
+<script>
+(function(){
+  var menuBtn = document.getElementById("menuBtn"),
+      menu = document.getElementById("mobileMenu");
+  if(!menuBtn || !menu) return;
+  menuBtn.addEventListener("click", function(){
+    var open = menu.classList.toggle("open");
+    menuBtn.classList.toggle("open", open);
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    if(open){
+      var r = menuBtn.getBoundingClientRect();
+      menu.style.setProperty("--cx", (r.left + r.width/2) + "px");
+      menu.style.setProperty("--cy", (r.top + r.height/2) + "px");
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  });
+  menu.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", function(){
+      menu.classList.remove("open");
+      menuBtn.classList.remove("open");
+      menu.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    });
+  });
+})();
+</script>
+</body>
+</html>
