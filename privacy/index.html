@@ -37,21 +37,23 @@
   .brand span { color: var(--accent); }
   .nav-links { display: flex; gap: 24px; font-size: 0.95rem; color: var(--ink-soft); }
   .nav-links a:hover { color: var(--ink); }
-  /* Burger menu button — realistic burger, crossfades to X when open */
+  /* Minimalist menu button — three lines, morphs to X when open */
   #menuBtn {
     display: none; position: relative; z-index: 60;
     width: 42px; height: 36px; border: 1px solid var(--line); border-radius: 8px;
     background: none; cursor: pointer; padding: 0;
     align-items: center; justify-content: center;
   }
-  #menuBtn svg.burger { width: 27px; height: 27px; display: block; transition: opacity .25s ease, transform .25s ease; }
-  #menuBtn .x1, #menuBtn .x2 {
-    position: absolute; left: 10px; right: 10px; top: 16.5px; height: 2.5px; border-radius: 2px;
-    background: var(--ink); opacity: 0; transition: opacity .25s ease, transform .25s ease;
+  #menuBtn .l1, #menuBtn .l2, #menuBtn .l3 {
+    position: absolute; left: 11px; right: 11px; height: 2px; border-radius: 2px;
+    background: var(--ink); transition: opacity .25s ease, transform .25s ease;
   }
-  #menuBtn.open svg.burger { opacity: 0; transform: scale(.55) rotate(-12deg); }
-  #menuBtn.open .x1 { opacity: 1; transform: rotate(45deg); }
-  #menuBtn.open .x2 { opacity: 1; transform: rotate(-45deg); }
+  #menuBtn .l1 { top: 12px; }
+  #menuBtn .l2 { top: 17px; }
+  #menuBtn .l3 { top: 22px; }
+  #menuBtn.open .l1 { transform: translateY(5px) rotate(45deg); }
+  #menuBtn.open .l2 { opacity: 0; }
+  #menuBtn.open .l3 { transform: translateY(-5px) rotate(-45deg); }
   #mobileMenu {
     position: fixed; inset: 0; z-index: 40; background: #fff;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
@@ -90,41 +92,14 @@
 <body>
 <nav>
   <div class="nav-inner">
-    <a class="brand" href="/"><img src="/logo.svg" alt="Saurabh Saha logo">Saurabh<span>.</span></a>
+    <a class="brand" href="/"><img src="/logo.svg" alt="Saurabh Saha logo">Saurabh <span>Saha</span></a>
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/emails/">Emails</a>
       <a href="/contact/">Contact</a>
     </div>
     <button id="menuBtn" aria-label="Open menu" aria-expanded="false">
-      <svg class="burger" viewBox="0 0 48 48" aria-hidden="true">
-        <defs>
-          <linearGradient id="btg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#F9BE5F"/><stop offset="1" stop-color="#DE9428"/>
-          </linearGradient>
-          <linearGradient id="bbg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#F0B356"/><stop offset="1" stop-color="#CF8623"/>
-          </linearGradient>
-          <linearGradient id="ptg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#7D5230"/><stop offset="1" stop-color="#59361E"/>
-          </linearGradient>
-        </defs>
-        <rect x="8" y="34.5" width="32" height="6.5" rx="3.2" fill="url(#bbg)"/>
-        <rect x="6" y="28.8" width="36" height="6.2" rx="3.1" fill="url(#ptg)"/>
-        <path d="M6 28.8h36v1.8c-5 0-6 3.2-10 3.2s-5.5-3.2-10-3.2-5.5 3.2-10 3.2-4-3.2-6-3.2v-1.8z" fill="#FFB300"/>
-        <path d="M6 25q4.5-3 9 0t9 0 9 0 9 0v3.8H6z" fill="#8BC34A"/>
-        <rect x="8.5" y="21.8" width="31" height="3.6" rx="1.8" fill="#E53935"/>
-        <path d="M7 21.8C7 12.5 15 7 24 7s17 5.5 17 14.8z" fill="url(#btg)"/>
-        <g fill="#FFF3D6">
-          <ellipse cx="17" cy="13.5" rx="1.8" ry="1.2" transform="rotate(-20 17 13.5)"/>
-          <ellipse cx="24.5" cy="11.5" rx="1.8" ry="1.2"/>
-          <ellipse cx="31.5" cy="14" rx="1.8" ry="1.2" transform="rotate(20 31.5 14)"/>
-          <ellipse cx="21" cy="16.5" rx="1.5" ry="1" transform="rotate(-10 21 16.5)"/>
-          <ellipse cx="28" cy="16.8" rx="1.5" ry="1" transform="rotate(12 28 16.8)"/>
-        </g>
-        <ellipse cx="18" cy="11" rx="6" ry="2.6" fill="#ffffff" opacity="0.18"/>
-      </svg>
-      <span class="x1"></span><span class="x2"></span>
+      <span class="l1"></span><span class="l2"></span><span class="l3"></span>
     </button>
   </div>
 </nav>
