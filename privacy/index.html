@@ -82,6 +82,10 @@
   .card p { margin-bottom: 0; }
   footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--ink-faint); font-size: 0.9rem; }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .foot-inner { align-items: center; }
+  .foot-links { display: inline-flex; align-items: center; gap: 12px; }
+  .foot-links a:hover { color: var(--accent); }
+  .foot-links span { color: var(--ink-faint); }
   @media (max-width: 640px) { h1 { font-size: 1.7rem; } .nav-links { gap: 16px; font-size: 0.88rem; } }
   @media (max-width: 560px) {
     .nav-links { display: none; }
@@ -135,9 +139,9 @@
   </div>
 </main>
 <footer>
-  <div class="wrap">
+  <div class="wrap foot-inner">
     <span>© 2026 Saurabh Saha</span>
-    <span><a href="/privacy/">Privacy</a> &nbsp;·&nbsp; <a href="/contact/">Contact</a></span>
+    <span class="foot-links"><a href="/privacy/">Privacy</a><span>&middot;</span><a href="/terms/">Terms</a><span>&middot;</span><a href="/contact/">Contact</a></span>
   </div>
 </footer>
 <script>
